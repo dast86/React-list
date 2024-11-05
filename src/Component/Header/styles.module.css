@@ -1,0 +1,23 @@
+.conteiner{
+    display: flex;
+    justify-content: space-between;
+    max-height: 60px;
+    margin-top: 20px;
+    background-color: rgb(227, 238, 235);
+    padding: 5px
+}
+
+.title{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.navigation{
+    font-size: 28px;
+    font-weight: bold;
+
+}
+
+.separator{
+    margin: 0 8px;
+}

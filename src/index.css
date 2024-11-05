@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+}
+a,
+span,
+p,
+b,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #232323;
+}
+a {
+  text-decoration: none;
+}
+
+body {
+  color: #232323;
+  background-color: rgb(141, 58, 58);
+}
+
+
+.wrapper{
+  /* background-color: rgb(20, 163, 230) ; */
+    max-width: 1200px;
+    margin: 0 auto;
+}
