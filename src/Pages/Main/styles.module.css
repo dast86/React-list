@@ -1,28 +1,51 @@
 .conteiner{
     background-color: white;
-    /* padding-left: 50px; */
 
 }
 
 .title{
     padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
 }
+
 
 .list{ 
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid black;
-    /* background-color: blue; */
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #dcdcdc;
+    padding-top: 15px; /* Отступ сверху, чтобы граница не прилегала к содержимому */
 }
 
-.list li {
+/* Добавляем подсветку при наведении */
+.list:hover {
+    border: 1px solid rgba(250, 2, 5, 0.658);
+    box-shadow: rgba(250, 2, 5, 0.658) 0px 1px 4px;
+
+
+}
+
+.list li, 
+.title li {
     display: flex;
     width: 200px;
     justify-content: center;
     align-items: center;
+
 }
 
 .image{
-    max-height: 100px;
-    max-width: 200px;
+    max-height: 75px;
+    max-width: 100px;
+}
+
+.svg{
+    max-height: 35px;
+    max-width: 35px;
+}
+
+.svg:hover{ 
+    cursor: pointer;
+
 }

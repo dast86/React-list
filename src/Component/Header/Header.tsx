@@ -5,10 +5,10 @@ const Header = () =>{
     return(
         <header className={styles.conteiner}>
             <div className={styles.title}>
-                <p>Список пользователей</p>
+                <p>Список зарегистрированных <span>героев</span></p>
             </div>
             <div className={styles.navigation}>
-                <a href="#">Главное</a>
+                <a href="#" className={styles.active}>Главное</a>
                 <span className={styles.separator}>/</span>
                 <a href="#">Избранное</a>
             </div>
