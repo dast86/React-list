@@ -1,13 +1,18 @@
-import dony from "../../img/1.jpg";
-import noActive from "../../img/svg/14.svg";
+// import dony from "../../img/1.jpg";
+// import noActive from "../../img/svg/14.svg";
 // import active from "../../img/svg/5.svg"
 import axios from "axios";
 import styles from "./styles.module.css";
 import { useEffect, useState } from "react";
+import UsersList from "../../Component/UsersList/UsersList";
+
+
+
 
 const Main = () => {
   const [users, setUsers] = useState([]);
   const [loding, setLoding] = useState(true);
+  
 
   const url = "https://jsonplaceholder.typicode.com/users";
   const getUser = async () => {
@@ -34,6 +39,8 @@ const Main = () => {
         <li></li>
       </ul>
 
+      {!loding && <UsersList users={users}/>}
+{/* 
       { users.map((user) => (
         <ul className={styles.list} key={user.id}>
           <li>
@@ -44,7 +51,7 @@ const Main = () => {
           <li>{user.email}</li>
           <li> <img src={noActive}  className={styles.svg} alt="" /></li>
         </ul>
-      ))}
+      ))} */}
       {/* <ul className={styles.list}>
                     <li><img className={styles.image} src={dony} alt="" /></li>
                     <li> Дони-Чёп</li>
