@@ -11,21 +11,24 @@ import styles from "./styles.module.css";
   }
 
 const UsersList = ({users}:Props) =>{
-    // Тут создаю состояние, которое является массивом булевых значений, которые равны кол-ву созданных элементов из пропса users
-    const[active, setActive] = useState(Array(users.length).fill(false))
 
-    // 
-    const handelClickIcon = (index:number) =>{
-        setActive((prev) => 
-            prev.map((isActive, i) => (i===index ? !isActive: isActive)) //тут создам цикл и прохожусь по каждому элементу из массива active
-    )
+    const [activeIcons, setActiveIcons] = useState<number[]>([]) //потом я вынесу его в редакс 
 
-        }
+    const toggleIcon =(userId:number)=>{
+        setActiveIcons((prev)=>{
+            if (prev.includes(userId)){
+                return prev.filter((item)=> item !== userId)
+            }
+            else {
+                return [...prev, userId]
+            }
+        })
+    }
     
 
     return(
         <>
-         { users.map((user,index) => (
+         { users.map((user) => (
         <ul className={styles.list} key={user.id}>
           <li>
             <img className={styles.image} src={dony} alt="" />
@@ -34,8 +37,8 @@ const UsersList = ({users}:Props) =>{
           <li> {user.name} </li>
           <li>{user.email}</li>
           <li > <img 
-          onClick={()=>handelClickIcon(index)}
-          src={active[index] ? activeSpider: noActiveSpider}  
+          onClick={()=>toggleIcon(user.id)}
+          src={activeIcons.includes(user.id)? activeSpider:noActiveSpider}  
           className={styles.svg}
            alt="" /></li>
         </ul>
