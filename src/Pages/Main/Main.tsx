@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 const Main = () => {
 
-  const { data:users, isLoading } = useGetUserQuery()
+  const { data, isLoading } = useGetUserQuery()
 
 
 
@@ -22,7 +22,7 @@ const Main = () => {
         <li></li>
       </ul>
 
-      {!isLoading && users && <UsersList users={users} />} 
+      {!isLoading && data && <UsersList data={data} />} 
       {/* Либо такой вариант, хз какой лучше по читабельности 
         {!isLoading && <UsersList users={users ?? []} />} */}
 
