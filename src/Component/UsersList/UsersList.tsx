@@ -1,8 +1,11 @@
-import { useState } from "react";
 import dony from "../../img/1.jpg";
 import noActiveSpider from "../../img/svg/14.svg";
 import { Users } from "../../interface";
 import activeSpider from "../../img/svg/5.svg"
+
+import { useAppDispatch, useAppSelector } from "../../store";
+import { setFavoritesUsers } from "../../store/slice/usersSlice";
+
 import styles from "./styles.module.css";
 
 
@@ -12,19 +15,16 @@ import styles from "./styles.module.css";
 
 const UsersList = ({users}:Props) =>{
 
-    const [activeIcons, setActiveIcons] = useState<number[]>([]) //потом я вынесу его в редакс 
+    const favoritesUsers = useAppSelector(store => store.usersStore.favoritesUsers)
+    const dispatch = useAppDispatch()
 
     const toggleIcon =(userId:number)=>{
-        setActiveIcons((prev)=>{
-            if (prev.includes(userId)){
-                return prev.filter((item)=> item !== userId)
-            }
-            else {
-                return [...prev, userId]
-            }
-        })
+        const updatedFavorites = favoritesUsers.includes(userId)
+        ? favoritesUsers.filter((item)=> item !== userId)
+        : [...favoritesUsers,userId];
+
+        return  dispatch(setFavoritesUsers(updatedFavorites))
     }
-    
 
     return(
         <>
@@ -38,7 +38,7 @@ const UsersList = ({users}:Props) =>{
           <li>{user.email}</li>
           <li > <img 
           onClick={()=>toggleIcon(user.id)}
-          src={activeIcons.includes(user.id)? activeSpider:noActiveSpider}  
+          src={favoritesUsers.includes(user.id)? activeSpider:noActiveSpider}  
           className={styles.svg}
            alt="" /></li>
         </ul>
