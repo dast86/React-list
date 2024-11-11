@@ -1,5 +1,6 @@
 import { Users } from "../../interface";
 import Image from "../Image/Image";
+import imagePath from "../../../public/1.png"
 
 
 
@@ -15,8 +16,6 @@ const UsersList = ({ data }: Props) => {
     return (
         <>
             {data.map((user) => {
-                const randomIcons = Math.floor(Math.random() * 25) + 1
-                const imagePath  = `../../../public/${randomIcons}.png`
 
                 return (
                     <ul className={styles.list} key={user.id}>
@@ -28,7 +27,7 @@ const UsersList = ({ data }: Props) => {
                         <li> {user.username}</li>
                         <li> {user.name} </li>
                         <li>{user.email}</li>
-                        <li > <Image id={user.id}/> </li>
+                        <li > <Image user={user}/> </li>
                     </ul>
                 )
             }

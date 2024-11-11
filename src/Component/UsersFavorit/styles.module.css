@@ -37,3 +37,19 @@
     height: 100%;
     object-fit: cover; 
 }
+
+.actions{
+    display: flex;
+    gap: 15px;
+
+}
+
+
+.svg{
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.svg:hover{ 
+    cursor: pointer;
+}
