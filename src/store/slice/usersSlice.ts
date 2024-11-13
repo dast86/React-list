@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { Users } from '../../interface'
 
 interface State {
-    favoritesUsers: number[],
+    favoritesUsers: Users[]
 }
 
 const initialState:State = {
@@ -13,7 +14,7 @@ export const usersSlice = createSlice({
   name: 'users',  
   initialState,
   reducers: {
-    setFavoritesUsers: (state, action: PayloadAction<number[]>) => {
+    setFavoritesUsers: (state, action: PayloadAction<Users[]>) => {
       state.favoritesUsers = action.payload
     },
   },
