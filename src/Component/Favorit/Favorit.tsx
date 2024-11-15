@@ -28,7 +28,7 @@ const Favorit = () => {
       </div>
 
       {<UserFavorit/>}
-      <FormUser/>
+      {addForm &&<FormUser onClose={setAddForm}/>}
 
       
     </>

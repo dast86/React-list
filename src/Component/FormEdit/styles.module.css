@@ -16,7 +16,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background:   rgba(94, 93, 93, 0.5);
+  background: rgba(94, 93, 93, 0.5);
   z-index: 1;
 }
 
@@ -57,7 +57,6 @@
     border-bottom-width: 2.5px;
     border-radius: 6px;
     transition: all 0.3s ease;
-  
   }
   .inputBox input:focus,
   .inputBox input:valid
