@@ -6,6 +6,7 @@ import edit from "../../img/svg/edit.svg";
 import styles from "./styles.module.css";
 import FormEdit from "../FormEdit/FormEdit";
 import { useState } from "react";
+import { Users } from "../../interface";
 
 const UserFavorit = () => {
   const favoritesUsers = useAppSelector(
@@ -14,10 +15,7 @@ const UserFavorit = () => {
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null)
-
-
-
+  const [selectedUser, setSelectedUser] = useState<Users | null>(null)
 
   const clickDelet = (id: number) => {
     const checkBoolean = favoritesUsers.some(
@@ -30,17 +28,20 @@ const UserFavorit = () => {
     }
   };
 
-  const clickEdit = (user) => {
-    // const checkBoolean = favoritesUsers.some(
-    //   (favorites) => favorites.id === id
-    // );
 
-    // if (checkBoolean) {
-      setSelectedUser(user)
-      // setOpen(true);
-      // console.log(id)
-    // }
+  const saveUserChanges = (updatedUser:Users) => {
+    const updatedFavorites = favoritesUsers.map((user) =>
+      user.id === updatedUser.id ? updatedUser : user
+    );
+    dispatch(setFavoritesUsers(updatedFavorites));
+    setOpen(false);
   };
+
+  const clickEdit = (user:Users) => {
+      setSelectedUser(user)
+      setOpen(true);
+  };
+
 
 
   return (
@@ -55,8 +56,7 @@ const UserFavorit = () => {
 
       {favoritesUsers.map((user) => {
         return (
-          <div key={user.id}>
-            <ul className={styles.list}>
+            <ul className={styles.list} key={user.id}>
               <li>
                 <div className={styles.icons}>
                   <img className={styles.image} src={imagePath} alt="" />
@@ -75,10 +75,13 @@ const UserFavorit = () => {
                 <img className={styles.svg} onClick={() => clickEdit(user)} src={edit} alt="" />
               </li>
             </ul>
-          </div>
         );
       })}
-      {/* {open && <FormEdit user={user}  setOpen={setOpen}/>} */}
+      {open &&  selectedUser && <FormEdit
+          selectedUser={selectedUser}
+          setOpen={setOpen}
+          saveUserChanges={saveUserChanges}
+        />}
     </>
   );
 };

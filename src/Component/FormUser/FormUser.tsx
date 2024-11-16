@@ -17,13 +17,12 @@ const FormUser = ({ onClose }: Props) => {
     ? favoritesUsers[favoritesUsers.length - 1].id
     : 11;
 
-  console.log(favoritesUsers, lastId);
 
   const [name, setName] = useState(``);
   const [username, setUsername] = useState(``);
   const [email, setEmail] = useState(``);
 
-  const ckickAddForm = (event) => {
+  const ckickAddForm = (event:React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (name && username && email) {
       const newUser = {

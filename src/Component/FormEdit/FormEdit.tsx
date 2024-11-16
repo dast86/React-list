@@ -1,24 +1,33 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
-// import { useAppDispatch, useAppSelector } from "../../store";
+import { Users } from "../../interface";
 
-const FormEdit = ({ user, setOpen }) => {
-  const [nameEdit, setNameEdit] = useState(user.name);
-  const [usernameEdit, setUsernameEdit] = useState(user.username);
-  const [emailEdit, setEmailEdit] = useState(user.email);
 
-  const changeUser = () => {
-    console.log(user)
-    setOpen(false)
-    
+
+interface Props {
+  selectedUser:Users,
+  setOpen: (params:boolean) => void,
+  saveUserChanges: (params:Users) => void
+}
+
+const FormEdit = ({ selectedUser, setOpen, saveUserChanges }:Props) => {
+
+  const [nameEdit, setNameEdit] = useState(selectedUser.name);
+  const [usernameEdit, setUsernameEdit] = useState(selectedUser.username);
+  const [emailEdit, setEmailEdit] = useState(selectedUser.email);
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    saveUserChanges({ ...selectedUser, name: nameEdit, username: usernameEdit, email: emailEdit });
   };
 
   return (
     <div className={styles.modal}>
-      <div className={styles.overlay}></div>
+      <div className={styles.overlay} onClick={() => setOpen(false)}></div>
       <div className={styles.wrapper}>
         <h2>Изменение пользователя</h2>
-        <form action="#" >
+        <form action="#" onSubmit={handleSubmit} >
           <div className={styles.inputBox}>
             <input
               type="text"
@@ -47,7 +56,7 @@ const FormEdit = ({ user, setOpen }) => {
             />
           </div>
           <div className={styles.inputBox}>
-          <button onClick={changeUser} className={styles.button} type="submit">Изменить</button>
+          <button  className={styles.button} type="submit">Изменить</button>
           </div>
         </form>
       </div>
