@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./styles.module.css";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
+import InputForm from "../Input/Input";
 
 interface Props {
   onClose: (form: boolean) => void;
@@ -13,76 +13,51 @@ const FormUser = ({ onClose }: Props) => {
   );
 
   const dispatch = useAppDispatch();
+  const [inputForm, setInputForm] = useState({
+    name: "",
+    username: "",
+    email: "",
+  });
+
   const lastId = favoritesUsers.length
     ? favoritesUsers[favoritesUsers.length - 1].id
     : 11;
 
-  const [name, setName] = useState(``);
-  const [username, setUsername] = useState(``);
-  const [email, setEmail] = useState(``);
-  
-
-
-  const ckickAddForm = (event:React.FormEvent<HTMLButtonElement>) => {
+  const ckickAddForm = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (name && username && email) {
+    if (inputForm.name && inputForm.username && inputForm.email) {
       const newUser = {
         id: lastId + 1,
-        username,
-        name,
-        email,
+        username: inputForm.username,
+        name: inputForm.name,
+        email: inputForm.email,
       };
       const newFavoritesUsers = [...favoritesUsers, newUser];
 
-      setName(``);
-      setUsername(``);
-      setEmail(``);
+      setInputForm({
+        name: "",
+        username: "",
+        email: "",
+      });
+
       onClose(false);
 
-      localStorage.setItem('favoritesUsers', JSON.stringify(newFavoritesUsers))
+      localStorage.setItem("favoritesUsers", JSON.stringify(newFavoritesUsers));
       return dispatch(setFavoritesUsers(newFavoritesUsers));
     }
   };
 
   return (
-    <div className={styles.modal}>
-      <div className={styles.overlay} onClick={() => onClose(false)}></div>
-      <div className={styles.wrapper}>
-        <h2>Добавление пользователя</h2>
-        <form action="#">
-          <div className={styles.inputBox}>
-            <input
-              type="text"
-              placeholder="Ваш псевдоним"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className={styles.inputBox}>
-            <input
-              type="text"
-              placeholder="Настоящие имя"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <div className={styles.inputBox}>
-            <input
-              type="text"
-              placeholder="Почта для связи"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className={styles.inputBox}>
-            <button onClick={ckickAddForm} className={styles.button} type="submit">Добавить</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <>
+      <InputForm
+        data={inputForm}
+        setData={setInputForm}
+        ckickAddForm={ckickAddForm}
+        onClose={onClose}
+      >
+        Добавление пользователя
+      </InputForm>
+    </>
   );
 };
 

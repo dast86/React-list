@@ -8,7 +8,6 @@ function App() {
     <div className="wrapper">
       <Header/>
       <Main/>
-      
     </div>
   )
 }

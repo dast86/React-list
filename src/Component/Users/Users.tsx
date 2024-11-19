@@ -1,8 +1,6 @@
 import { useGetUserQuery } from "../../store/services/userApi";
+import UserListHeader from "../UserListHeader/UserListHeader";
 import UsersList from "../UsersList/UsersList";
-
-
-
 
 
 const Users = () => {
@@ -10,7 +8,8 @@ const Users = () => {
 
   return (
     <>
-          {!isLoading && data && <UsersList data={data} />} 
+      <UserListHeader/>
+      {!isLoading && data && <UsersList data={data} />}
     </>
   );
 };

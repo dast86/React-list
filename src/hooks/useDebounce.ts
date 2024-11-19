@@ -9,6 +9,7 @@ export const useDebounce = (value: string, users:Users[], deplay: number) => {
       const searchFavorites = users.filter((user) =>
           user.name.toLowerCase().includes(value.toLowerCase())
         ) 
+
     const debounce = setTimeout(() => {
         setDebounceValue(searchFavorites)
     }, deplay);

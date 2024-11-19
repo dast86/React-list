@@ -12,7 +12,7 @@ interface PropsImage {
 }
 
 
-const Image = ({ user }:PropsImage) => {
+const ImagSpider = ({ user }:PropsImage) => {
 
     const favoritesUsers = useAppSelector(store => store.usersStore.favoritesUsers)
     const dispatch = useAppDispatch()
@@ -27,10 +27,6 @@ const Image = ({ user }:PropsImage) => {
         return dispatch(setFavoritesUsers(updatedFavorites))
     }
 
-
-
-
-
     return (
         <>
             <img
@@ -43,4 +39,4 @@ const Image = ({ user }:PropsImage) => {
 
 }
 
-export default Image
+export default ImagSpider

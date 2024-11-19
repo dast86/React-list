@@ -1,5 +1,5 @@
 import { Users } from "../../interface";
-import Image from "../Image/Image";
+import ImagSpider from "../ImagSpider/ImagSpider";
 import imagePath from "../../../public/1.png";
 
 import styles from "./styles.module.css";
@@ -11,13 +11,6 @@ interface Props {
 const UsersList = ({ data }: Props) => {
   return (
     <>
-      <ul className={styles.title}>
-        <li>Фото</li>
-        <li>Псевдоним</li>
-        <li>Настоящее имя</li>
-        <li>Контакты для связи</li>
-        <li></li>
-      </ul>
       {data.map((user) => {
         return (
           <ul className={styles.list} key={user.id}>
@@ -31,7 +24,7 @@ const UsersList = ({ data }: Props) => {
             <li>{user.email}</li>
             <li>
               {" "}
-              <Image user={user} />{" "}
+              <ImagSpider user={user} />{" "}
             </li>
           </ul>
         );
