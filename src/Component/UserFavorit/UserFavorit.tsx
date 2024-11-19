@@ -23,14 +23,9 @@ const UserFavorit = ({ search }: Props) => {
   const debounce = useDebounce(search, favoritesUsers, 500 )
 
   const clickDelet = (id: number) => {
-    // const checkBoolean = favoritesUsers.some(
-    //   (favorites) => favorites.id === id
-    // );
-
-    // if (checkBoolean) {
       const updatedFavorites = favoritesUsers.filter((item) => item.id !== id);
+      localStorage.setItem('favoritesUsers', JSON.stringify(updatedFavorites))
       return dispatch(setFavoritesUsers(updatedFavorites));
-    // }
   };
 
 

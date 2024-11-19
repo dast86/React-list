@@ -39,8 +39,7 @@ const FormUser = ({ onClose }: Props) => {
       setEmail(``);
       onClose(false);
 
-
-
+      localStorage.setItem('favoritesUsers', JSON.stringify(newFavoritesUsers))
       return dispatch(setFavoritesUsers(newFavoritesUsers));
     }
   };

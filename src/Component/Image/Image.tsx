@@ -23,6 +23,7 @@ const Image = ({ user }:PropsImage) => {
         const updatedFavorites = booleanFavorites 
         ? favoritesUsers.filter((item) => item.id !== id) 
         :[...favoritesUsers, user]
+        localStorage.setItem('favoritesUsers', JSON.stringify(updatedFavorites))
         return dispatch(setFavoritesUsers(updatedFavorites))
     }
 
