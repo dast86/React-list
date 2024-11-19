@@ -7,29 +7,34 @@ import styles from "./styles.module.css";
 import FormEdit from "../FormEdit/FormEdit";
 import { useState } from "react";
 import { Users } from "../../interface";
+import { useDebounce } from "../../hooks/useDebounce";
 
-const UserFavorit = () => {
+interface Props {
+  search: string;
+}
+
+const UserFavorit = ({ search }: Props) => {
   const favoritesUsers = useAppSelector(
     (store) => store.usersStore.favoritesUsers
   );
   const dispatch = useAppDispatch();
-
   const [open, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<Users | null>(null)
+  const [selectedUser, setSelectedUser] = useState<Users | null>(null);
+  const debounce = useDebounce(search, favoritesUsers, 500 )
 
   const clickDelet = (id: number) => {
-    const checkBoolean = favoritesUsers.some(
-      (favorites) => favorites.id === id
-    );
+    // const checkBoolean = favoritesUsers.some(
+    //   (favorites) => favorites.id === id
+    // );
 
-    if (checkBoolean) {
+    // if (checkBoolean) {
       const updatedFavorites = favoritesUsers.filter((item) => item.id !== id);
       return dispatch(setFavoritesUsers(updatedFavorites));
-    }
+    // }
   };
 
 
-  const saveUserChanges = (updatedUser:Users) => {
+  const saveUserChanges = (updatedUser: Users) => {
     const updatedFavorites = favoritesUsers.map((user) =>
       user.id === updatedUser.id ? updatedUser : user
     );
@@ -37,11 +42,10 @@ const UserFavorit = () => {
     setOpen(false);
   };
 
-  const clickEdit = (user:Users) => {
-      setSelectedUser(user)
-      setOpen(true);
+  const clickEdit = (user: Users) => {
+    setSelectedUser(user);
+    setOpen(true);
   };
-
 
 
   return (
@@ -54,34 +58,41 @@ const UserFavorit = () => {
         <li></li>
       </ul>
 
-      {favoritesUsers.map((user) => {
+      {debounce.map((user) => {
         return (
-            <ul className={styles.list} key={user.id}>
-              <li>
-                <div className={styles.icons}>
-                  <img className={styles.image} src={imagePath} alt="" />
-                </div>
-              </li>
-              <li> {user.username}</li>
-              <li> {user.name} </li>
-              <li>{user.email}</li>
-              <li className={styles.actions}>
-                <img
-                  onClick={() => clickDelet(user.id)}
-                  className={styles.svg}
-                  src={delet}
-                  alt=""
-                />
-                <img className={styles.svg} onClick={() => clickEdit(user)} src={edit} alt="" />
-              </li>
-            </ul>
+          <ul className={styles.list} key={user.id}>
+            <li>
+              <div className={styles.icons}>
+                <img className={styles.image} src={imagePath} alt="" />
+              </div>
+            </li>
+            <li> {user.username}</li>
+            <li> {user.name} </li>
+            <li>{user.email}</li>
+            <li className={styles.actions}>
+              <img
+                onClick={() => clickDelet(user.id)}
+                className={styles.svg}
+                src={delet}
+                alt=""
+              />
+              <img
+                className={styles.svg}
+                onClick={() => clickEdit(user)}
+                src={edit}
+                alt=""
+              />
+            </li>
+          </ul>
         );
       })}
-      {open &&  selectedUser && <FormEdit
+      {open && selectedUser && (
+        <FormEdit
           selectedUser={selectedUser}
           setOpen={setOpen}
           saveUserChanges={saveUserChanges}
-        />}
+        />
+      )}
     </>
   );
 };

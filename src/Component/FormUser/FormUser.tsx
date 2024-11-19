@@ -17,10 +17,11 @@ const FormUser = ({ onClose }: Props) => {
     ? favoritesUsers[favoritesUsers.length - 1].id
     : 11;
 
-
   const [name, setName] = useState(``);
   const [username, setUsername] = useState(``);
   const [email, setEmail] = useState(``);
+  
+
 
   const ckickAddForm = (event:React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -37,6 +38,8 @@ const FormUser = ({ onClose }: Props) => {
       setUsername(``);
       setEmail(``);
       onClose(false);
+
+
 
       return dispatch(setFavoritesUsers(newFavoritesUsers));
     }

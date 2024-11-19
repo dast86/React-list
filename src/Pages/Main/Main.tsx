@@ -8,7 +8,7 @@ const Main = () => {
 
   return (
     <main className={styles.conteiner}>
-      <Users/>
+      {/* <Users/> */}
       <Favorit />
     </main>
   );
