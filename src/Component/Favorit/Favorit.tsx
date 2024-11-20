@@ -34,7 +34,7 @@ const Favorit = () => {
     <>
       <div className={styles.flexConteiner}>
         <div className={styles.buttonForm}>
-          <button className={styles.button}  onClick={()=>setAddForm(true)}>Добавить пользователя</button>
+          <button className={styles.button}  onClick={()=>setAddForm(true)}>Добавить Героя</button>
         </div>
 
       {/* Инпут  */}

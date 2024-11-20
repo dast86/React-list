@@ -14,7 +14,7 @@ const UserListItem = ({user,clickDelet,clickEdit}:Props) => {
 
   return (
     <>
-          <ul className={styles.list} key={user.id}>
+          <ul className={styles.list}>
             <li>
               <div className={styles.icons}>
                 <img className={styles.image} src={imagePath} alt="" />

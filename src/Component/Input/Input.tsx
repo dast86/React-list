@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 
 
@@ -16,6 +17,33 @@ interface Props {
 }
 
 const InputForm = ({data, setData, ckickAddForm,onClose, children}:Props) => {
+
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  // Для изначального фокуса 
+    useEffect(() =>{
+      usernameRef.current?.focus()
+    },[])
+
+    // Функция для фокусов по инпутам в форме
+    const handleSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
+      if (!data.username) {
+        usernameRef.current?.focus()
+        return  // тут во всх условиях пишу return для остановки последующей проверки 
+      }
+      if (!data.name) {
+        nameRef.current?.focus()
+        return 
+      }
+      if (!data.email) {
+        emailRef.current?.focus()
+        return 
+      }
+      // Вызываем основную функцию при клике
+      ckickAddForm(event)
+    }
    
     return (
       <div className={styles.modal}>
@@ -25,6 +53,7 @@ const InputForm = ({data, setData, ckickAddForm,onClose, children}:Props) => {
           <form action="#">
             <div className={styles.inputBox}>
               <input
+              ref={usernameRef}
                 type="text"
                 placeholder="Ваш псевдоним"
                 value={data.username}
@@ -36,6 +65,7 @@ const InputForm = ({data, setData, ckickAddForm,onClose, children}:Props) => {
             </div>
             <div className={styles.inputBox}>
               <input
+              ref={nameRef}
                 type="text"
                 placeholder="Настоящие имя"
                 value={data.name}
@@ -47,6 +77,7 @@ const InputForm = ({data, setData, ckickAddForm,onClose, children}:Props) => {
             </div>
             <div className={styles.inputBox}>
               <input
+              ref={emailRef}
                 type="text"
                 placeholder="Почта для связи"
                 value={data.email}
@@ -58,7 +89,7 @@ const InputForm = ({data, setData, ckickAddForm,onClose, children}:Props) => {
             </div>
             <div className={styles.inputBox}>
               <button
-                onClick={ckickAddForm}
+                onClick={handleSubmit}
                 className={styles.button}
                 type="submit"
               >

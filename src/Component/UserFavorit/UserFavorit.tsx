@@ -43,18 +43,19 @@ const UserFavorit = ({ search }: Props) => {
     setOpen(true);
   };
 
+
   return (
     <>
+      <UserListHeader />
 
-    <UserListHeader/>
-
-      {debounce.map((user) => {
+      {debounce.map((user) => (
         <UserListItem
           user={user}
           clickDelet={clickDelet}
           clickEdit={clickEdit}
-        />;
-      })}
+          key={user.id}
+        />
+      ))}
       {open && selectedUser && (
         <FormEdit
           selectedUser={selectedUser}
