@@ -5,39 +5,38 @@ import { Users } from "../../interface";
 import styles from "./styles.module.css";
 
 interface Props {
-    user:Users,
-    clickDelet: (id: number) => void
-    clickEdit: (params:Users) => void
+  user: Users;
+  clickDelet: (id: number) => void;
+  clickEdit: (params: Users) => void;
 }
 
-const UserListItem = ({user,clickDelet,clickEdit}:Props) => {
-
+const UserListItem = ({ user, clickDelet, clickEdit }: Props) => {
   return (
     <>
-          <ul className={styles.list}>
-            <li>
-              <div className={styles.icons}>
-                <img className={styles.image} src={imagePath} alt="" />
-              </div>
-            </li>
-            <li> {user.username}</li>
-            <li> {user.name} </li>
-            <li>{user.email}</li>
-            <li className={styles.actions}>
-              <img
-                onClick={() => clickDelet(user.id)}
-                className={styles.svg}
-                src={delet}
-                alt=""
-              />
-              <img
-                className={styles.svg}
-                onClick={() => clickEdit(user)}
-                src={edit}
-                alt=""
-              />
-            </li>
-          </ul>
+      <ul className={styles.list}>
+        <li>
+          <div className={styles.icons}>
+            <img className={styles.image} src={imagePath} alt="" />
+          </div>
+        </li>
+        <li> {user.username}</li>
+        <li> {user.name} </li>
+        <li>{user.email}</li>
+        <li className={styles.actions}>
+          <img
+            onClick={() => clickDelet(user.id)}
+            className={styles.svg}
+            src={delet}
+            alt=""
+          />
+          <img
+            className={styles.svg}
+            onClick={() => clickEdit(user)}
+            src={edit}
+            alt=""
+          />
+        </li>
+      </ul>
     </>
   );
 };

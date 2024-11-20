@@ -21,6 +21,7 @@ const UserFavorit = ({ search }: Props) => {
   //  Этот стейт нужен для того, что бы я передавал данные выбранного пользователя в FormEdit
   const [selectedUser, setSelectedUser] = useState<Users | null>(null);
 
+  // Отображение с задержкой в 500 млс
   const debounce = useDebounce(search, favoritesUsers, 500);
 
   const clickDelet = (id: number) => {
@@ -42,7 +43,6 @@ const UserFavorit = ({ search }: Props) => {
     setSelectedUser(user);
     setOpen(true);
   };
-
 
   return (
     <>

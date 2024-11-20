@@ -33,7 +33,6 @@ const FormEdit = ({ selectedUser, setOpen, saveUserChanges }: Props) => {
         Изменение пользователя
       </InputForm>
     </>
-
   );
 };
 

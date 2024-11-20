@@ -122,12 +122,12 @@ input:hover {
   transition: background-color 0.3s ease, color 0.3s ease; /* Добавляем плавный переход */
 }
 
-.button:hover{
-    background-color: rgba(159, 0, 19, 1);
-    color: #F0F0F0;
-    cursor: pointer;
-  }
-  
-  button{ 
-    border: none;
-  }
+.button:hover {
+  background-color: rgba(159, 0, 19, 1);
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+button {
+  border: none;
+}

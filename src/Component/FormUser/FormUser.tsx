@@ -25,8 +25,8 @@ const FormUser = ({ onClose }: Props) => {
     : 11;
 
   const ckickAddForm = (event: React.FormEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // отключаю поведение по умолчанию 
-    // Условия, что все три поля будут заполнены 
+    event.preventDefault(); // отключаю поведение по умолчанию
+    // Условия, что все три поля будут заполнены
     if (inputForm.name && inputForm.username && inputForm.email) {
       const newUser = {
         id: lastId + 1,

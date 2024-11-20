@@ -1,13 +1,12 @@
-
-.title{
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
+.title {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
-.title li{ 
-    display: flex;
-    width: 200px;
-    justify-content: center;
-    align-items: center;
+.title li {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
 }
