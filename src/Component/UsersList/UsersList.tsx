@@ -1,6 +1,6 @@
 import { Users } from "../../interface";
 import ImagSpider from "../ImagSpider/ImagSpider";
-import imagePath from "../../../public/1.png";
+import imagePath from "../../img/5.png";
 
 import styles from "./styles.module.css";
 

@@ -1,4 +1,4 @@
-import imagePath from "../../../public/1.png";
+import imagePath from "../../img/5.png";
 import delet from "../../img/svg/delete.svg";
 import edit from "../../img/svg/edit.svg";
 import { Users } from "../../interface";
