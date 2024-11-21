@@ -4,11 +4,11 @@ import ModalForm from "../ModalForm/ModalForm ";
 
 interface Props {
   selectedUser: Users;
-  setOpen: (params: boolean) => void;
+  setOpenForm: (params: boolean) => void;
   saveUserChanges: (params: Users) => void;
 }
 
-const FormEdit = ({ selectedUser, setOpen, saveUserChanges }: Props) => {
+const FavoriteFormEdit = ({ selectedUser, setOpenForm, saveUserChanges }: Props) => {
   const [inputEdit, setInputEdit] = useState({
     name: selectedUser.name,
     username: selectedUser.username,
@@ -17,7 +17,7 @@ const FormEdit = ({ selectedUser, setOpen, saveUserChanges }: Props) => {
   // Делаем сразу деструктуризацию
   const { name, username, email } = inputEdit;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleAddForm = (e: React.FormEvent) => {
     e.preventDefault();
     saveUserChanges({ ...selectedUser, name, username, email });
   };
@@ -26,12 +26,12 @@ const FormEdit = ({ selectedUser, setOpen, saveUserChanges }: Props) => {
     <ModalForm
       data={inputEdit}
       setData={setInputEdit}
-      ckickAddForm={handleSubmit}
-      onClose={setOpen}
+      handleAddForm={handleAddForm}
+      onClose={setOpenForm}
     >
       Изменение пользователя
     </ModalForm>
   );
 };
 
-export default FormEdit;
+export default FavoriteFormEdit;

@@ -7,7 +7,7 @@ interface Props {
   onClose: (form: boolean) => void;
 }
 
-const FormUser = ({ onClose }: Props) => {
+const AddUserForm = ({ onClose }: Props) => {
   const favoritesUsers = useAppSelector(
     (store) => store.usersStore.favoritesUsers
   );
@@ -24,7 +24,7 @@ const FormUser = ({ onClose }: Props) => {
     ? favoritesUsers[favoritesUsers.length - 1].id
     : 11;
 
-  const ckickAddForm = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleAddForm = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault(); // отключаю поведение по умолчанию
     // Условия, что все три поля будут заполнены
     if (inputForm.name && inputForm.username && inputForm.email) {
@@ -51,7 +51,7 @@ const FormUser = ({ onClose }: Props) => {
     <ModalForm
       data={inputForm}
       setData={setInputForm}
-      ckickAddForm={ckickAddForm}
+      handleAddForm={handleAddForm}
       onClose={onClose}
     >
       Добавление героя
@@ -59,4 +59,4 @@ const FormUser = ({ onClose }: Props) => {
   );
 };
 
-export default FormUser;
+export default AddUserForm;

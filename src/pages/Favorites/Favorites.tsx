@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
 import UserFavorit from "../../Component/UserFavorit/UserFavorit";
-import FormUser from "../../Component/FormUser/FormUser";
-import { useDispatch } from "react-redux";
+import ListHeader from "../../Component/ListHeader/ListHeader";
+import { useEffect, useState } from "react";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
 import { Users } from "../../interface";
+import { useDispatch } from "react-redux";
 import styles from "./styles.module.css";
+import AddUserForm from "../../Component/AddUserForm/AddUserForm";
 
 const Favorites = () => {
   const [addForm, setAddForm] = useState<boolean>(false);
@@ -28,7 +29,6 @@ const Favorites = () => {
             Добавить Героя
           </button>
         </div>
-
         {/* Инпут  */}
         <div className={styles.group}>
           <svg className={styles.icon} aria-hidden="true" viewBox="0 0 24 24">
@@ -46,7 +46,9 @@ const Favorites = () => {
         </div>
       </div>
 
-      {addForm && <FormUser onClose={setAddForm} />}
+      <ListHeader />
+
+      {addForm && <AddUserForm onClose={setAddForm} />}
 
       <UserFavorit search={search} />
     </>

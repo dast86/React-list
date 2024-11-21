@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-const UserListHeader = () => {
+const ListHeader = () => {
   return (
     <ul className={styles.title}>
       <li>Фото</li>
@@ -12,4 +12,4 @@ const UserListHeader = () => {
   );
 };
 
-export default UserListHeader;
+export default ListHeader;

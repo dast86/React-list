@@ -10,7 +10,7 @@ export interface DataInput {
 interface Props {
   data: DataInput;
   setData: (params: (prev: DataInput) => DataInput) => void;
-  ckickAddForm: (event: React.FormEvent<HTMLButtonElement>) => void;
+  handleAddForm: (event: React.FormEvent<HTMLButtonElement>) => void;
   onClose: (param: boolean) => void;
   children: React.ReactNode;
 }
@@ -18,7 +18,7 @@ interface Props {
 const ModalForm  = ({
   data,
   setData,
-  ckickAddForm,
+  handleAddForm,
   onClose,
   children,
 }: Props) => {
@@ -46,7 +46,7 @@ const ModalForm  = ({
       return;
     }
     // Вызываем основную функцию при клике
-    ckickAddForm(event);
+    handleAddForm(event);
   };
 
   return (
