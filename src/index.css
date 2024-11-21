@@ -28,8 +28,12 @@ body {
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
+  background-color: white;
+
+  
 }
 
 html {
   overflow-y: scroll; /* Полоса прокрутки всегда отображается, чтоб при переключении не скакало ничего */
 }
+

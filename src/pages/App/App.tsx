@@ -1,11 +1,11 @@
-import Header from "./Component/Header/Header";
-import Main from "./Pages/Main/Main";
+import { Outlet } from "react-router-dom";
+import Header from "../../Component/Header/Header";
 
 function App() {
   return (
     <div className="wrapper">
       <Header />
-      <Main />
+      <Outlet />
     </div>
   );
 }

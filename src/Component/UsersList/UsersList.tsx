@@ -1,7 +1,6 @@
 import { Users } from "../../interface";
-import ImagSpider from "../ImagSpider/ImagSpider";
-import imagePath from "../../img/5.png";
-
+import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
+import defaultAvatar from "../../img/defaultAvatar.png";
 import styles from "./styles.module.css";
 
 interface Props {
@@ -10,26 +9,23 @@ interface Props {
 
 const UsersList = ({ data }: Props) => {
   return (
-    <>
-      {data.map((user) => {
-        return (
-          <ul className={styles.list} key={user.id}>
-            <li>
-              <div className={styles.icons}>
-                <img className={styles.image} src={imagePath} alt="" />
-              </div>
-            </li>
-            <li> {user.username}</li>
-            <li> {user.name} </li>
-            <li>{user.email}</li>
-            <li>
-              {" "}
-              <ImagSpider user={user} />{" "}
-            </li>
-          </ul>
-        );
-      })}
-    </>
+    <ul>
+      {data.map((user) => (
+        <li key={user.id} className={styles.list}>
+          <div>
+            <div className={styles.icons}>
+              <img className={styles.image} src={defaultAvatar} alt="аватар" />
+            </div>
+          </div>
+          <div>{user.username}</div>
+          <div>{user.name} </div>
+          <div>{user.email}</div>
+          <div>
+            <FavoriteIcon user={user} />
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 

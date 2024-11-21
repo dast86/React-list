@@ -12,7 +12,7 @@
   box-shadow: rgba(250, 2, 5, 0.658) 0px 1px 4px;
 }
 
-.list li {
+.list > * {
   display: flex;
   width: 200px;
   justify-content: center;

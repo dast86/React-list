@@ -1,13 +1,13 @@
 import { useGetUserQuery } from "../../store/services/userApi";
-import UserListHeader from "../UserListHeader/UserListHeader";
-import UsersList from "../UsersList/UsersList";
+import UsersList from "../../Component/UsersList/UsersList";
+import ListHeader from "../../Component/ListHeader/ListHeader";
 
 const Users = () => {
   const { data, isLoading } = useGetUserQuery();
 
   return (
     <>
-      <UserListHeader />
+      <ListHeader/>
       {!isLoading && data && <UsersList data={data} />}
     </>
   );

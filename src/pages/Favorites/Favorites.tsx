@@ -1,12 +1,13 @@
+import UserFavorit from "../../Component/UserFavorit/UserFavorit";
+import ListHeader from "../../Component/ListHeader/ListHeader";
 import { useEffect, useState } from "react";
-import UserFavorit from "../UserFavorit/UserFavorit";
-import FormUser from "../FormUser/FormUser";
-import { useDispatch } from "react-redux";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
 import { Users } from "../../interface";
+import { useDispatch } from "react-redux";
 import styles from "./styles.module.css";
+import AddUserForm from "../../Component/AddUserForm/AddUserForm";
 
-const Favorit = () => {
+const Favorites = () => {
   const [addForm, setAddForm] = useState<boolean>(false);
   const [search, setSearch] = useState(``);
   const dispatch = useDispatch();
@@ -15,15 +16,8 @@ const Favorit = () => {
   useEffect(() => {
     const storedUsers = localStorage.getItem("favoritesUsers");
     if (storedUsers) {
-      try {
-        const parsedUsers: Users[] = JSON.parse(storedUsers);
-        dispatch(setFavoritesUsers(parsedUsers));
-      } catch (error) {
-        console.error(
-          "Ошибка при парсинге пользователей из localStorage:",
-          error
-        );
-      }
+      const parsedUsers: Users[] = JSON.parse(storedUsers);
+      dispatch(setFavoritesUsers(parsedUsers));
     }
   }, [dispatch]);
 
@@ -35,7 +29,6 @@ const Favorit = () => {
             Добавить Героя
           </button>
         </div>
-
         {/* Инпут  */}
         <div className={styles.group}>
           <svg className={styles.icon} aria-hidden="true" viewBox="0 0 24 24">
@@ -53,11 +46,13 @@ const Favorit = () => {
         </div>
       </div>
 
-      {addForm && <FormUser onClose={setAddForm} />}
+      <ListHeader />
 
-      {<UserFavorit search={search} />}
+      {addForm && <AddUserForm onClose={setAddForm} />}
+
+      <UserFavorit search={search} />
     </>
   );
 };
 
-export default Favorit;
+export default Favorites;

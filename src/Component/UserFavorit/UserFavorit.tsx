@@ -1,11 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../store";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
-import FormEdit from "../FormEdit/FormEdit";
 import { useState } from "react";
 import { Users } from "../../interface";
 import { useDebounce } from "../../hooks/useDebounce";
-import UserListItem from "../UserListItem/UserListItem";
-import UserListHeader from "../UserListHeader/UserListHeader";
+import FavoriteUserItem from "../FavoriteUserItem/FavoriteUserItem";
+import FavoriteFormEdit from "../FavoriteFormEdit/FavoriteFormEdit";
 
 interface Props {
   search: string;
@@ -16,18 +15,22 @@ const UserFavorit = ({ search }: Props) => {
     (store) => store.usersStore.favoritesUsers
   );
   const dispatch = useAppDispatch();
-  const [open, setOpen] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
 
   //  Этот стейт нужен для того, что бы я передавал данные выбранного пользователя в FormEdit
   const [selectedUser, setSelectedUser] = useState<Users | null>(null);
 
   // Отображение с задержкой в 500 млс
-  const debounce = useDebounce(search, favoritesUsers, 500);
+  const debounce = useDebounce(search, 500);
+  // отфильтрованные пользователи
+  const filteredFavorites = favoritesUsers.filter((user) =>
+    user.name.toLowerCase().includes(debounce.toLowerCase())
+  );
 
-  const clickDelet = (id: number) => {
+  const handleDelete = (id: number) => {
     const updatedFavorites = favoritesUsers.filter((item) => item.id !== id);
     localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    return dispatch(setFavoritesUsers(updatedFavorites));
+    dispatch(setFavoritesUsers(updatedFavorites));
   };
 
   const saveUserChanges = (updatedUser: Users) => {
@@ -36,34 +39,32 @@ const UserFavorit = ({ search }: Props) => {
     );
     localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
     dispatch(setFavoritesUsers(updatedFavorites));
-    setOpen(false);
+    setOpenForm(false);
   };
 
-  const clickEdit = (user: Users) => {
+  const handleEdit = (user: Users) => {
     setSelectedUser(user);
-    setOpen(true);
+    setOpenForm(true);
   };
 
   return (
-    <>
-      <UserListHeader />
-
-      {debounce.map((user) => (
-        <UserListItem
+    <ul>
+      {filteredFavorites.map((user) => (
+        <FavoriteUserItem
           user={user}
-          clickDelet={clickDelet}
-          clickEdit={clickEdit}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
           key={user.id}
         />
       ))}
-      {open && selectedUser && (
-        <FormEdit
+      {openForm && selectedUser && (
+        <FavoriteFormEdit
           selectedUser={selectedUser}
-          setOpen={setOpen}
+          setOpenForm={setOpenForm}
           saveUserChanges={saveUserChanges}
         />
       )}
-    </>
+    </ul>
   );
 };
 
