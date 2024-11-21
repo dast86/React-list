@@ -15,7 +15,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const InputForm = ({
+const ModalForm  = ({
   data,
   setData,
   ckickAddForm,
@@ -106,4 +106,4 @@ const InputForm = ({
   );
 };
 
-export default InputForm;
+export default ModalForm ;

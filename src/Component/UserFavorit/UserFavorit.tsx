@@ -22,12 +22,17 @@ const UserFavorit = ({ search }: Props) => {
   const [selectedUser, setSelectedUser] = useState<Users | null>(null);
 
   // Отображение с задержкой в 500 млс
-  const debounce = useDebounce(search, favoritesUsers, 500);
+  const debounce = useDebounce(search, 500);
+
+  // * Подумать как переименовать
+  const searchFavorites = favoritesUsers.filter((user) =>
+    user.name.toLowerCase().includes(debounce.toLowerCase())
+  );
 
   const clickDelet = (id: number) => {
     const updatedFavorites = favoritesUsers.filter((item) => item.id !== id);
     localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    return dispatch(setFavoritesUsers(updatedFavorites));
+    dispatch(setFavoritesUsers(updatedFavorites));
   };
 
   const saveUserChanges = (updatedUser: Users) => {
@@ -48,7 +53,8 @@ const UserFavorit = ({ search }: Props) => {
     <>
       <UserListHeader />
 
-      {debounce.map((user) => (
+      {/* //* Подумать как переименовать */}
+      {searchFavorites.map((user) => (
         <UserListItem
           user={user}
           clickDelet={clickDelet}

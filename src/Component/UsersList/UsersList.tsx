@@ -1,6 +1,6 @@
 import { Users } from "../../interface";
-import ImagSpider from "../ImagSpider/ImagSpider";
-import imagePath from "../../img/5.png";
+import FavoriteIcon from "../FavoriteIcon/ImageSpider";
+import defaultAvatar from "../../img/defaultAvatar.png";
 
 import styles from "./styles.module.css";
 
@@ -16,15 +16,14 @@ const UsersList = ({ data }: Props) => {
           <ul className={styles.list} key={user.id}>
             <li>
               <div className={styles.icons}>
-                <img className={styles.image} src={imagePath} alt="" />
+                <img className={styles.image} src={defaultAvatar} alt="аватар" />
               </div>
             </li>
             <li> {user.username}</li>
             <li> {user.name} </li>
             <li>{user.email}</li>
             <li>
-              {" "}
-              <ImagSpider user={user} />{" "}
+              <FavoriteIcon user={user} />
             </li>
           </ul>
         );

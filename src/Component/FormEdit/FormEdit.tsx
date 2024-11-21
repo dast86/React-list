@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Users } from "../../interface";
-import InputForm from "../Input/Input";
+import ModalForm from "../ModalForm/ModalForm ";
 
 interface Props {
   selectedUser: Users;
@@ -23,16 +23,14 @@ const FormEdit = ({ selectedUser, setOpen, saveUserChanges }: Props) => {
   };
 
   return (
-    <>
-      <InputForm
-        data={inputEdit}
-        setData={setInputEdit}
-        ckickAddForm={handleSubmit}
-        onClose={setOpen}
-      >
-        Изменение пользователя
-      </InputForm>
-    </>
+    <ModalForm
+      data={inputEdit}
+      setData={setInputEdit}
+      ckickAddForm={handleSubmit}
+      onClose={setOpen}
+    >
+      Изменение пользователя
+    </ModalForm>
   );
 };
 

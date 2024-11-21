@@ -1,4 +1,4 @@
-import imagePath from "../../img/5.png";
+import defaultAvatar  from "../../img/defaultAvatar.png"
 import delet from "../../img/svg/delete.svg";
 import edit from "../../img/svg/edit.svg";
 import { Users } from "../../interface";
@@ -16,7 +16,7 @@ const UserListItem = ({ user, clickDelet, clickEdit }: Props) => {
       <ul className={styles.list}>
         <li>
           <div className={styles.icons}>
-            <img className={styles.image} src={imagePath} alt="" />
+            <img className={styles.image} src={defaultAvatar} alt="Аватар пользователя" />
           </div>
         </li>
         <li> {user.username}</li>
@@ -27,13 +27,13 @@ const UserListItem = ({ user, clickDelet, clickEdit }: Props) => {
             onClick={() => clickDelet(user.id)}
             className={styles.svg}
             src={delet}
-            alt=""
+            alt="Удалить"
           />
           <img
             className={styles.svg}
             onClick={() => clickEdit(user)}
             src={edit}
-            alt=""
+            alt="Изменить"
           />
         </li>
       </ul>

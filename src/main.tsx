@@ -1,14 +1,34 @@
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.tsx";
+import App from "./pages/App/App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
-import { BrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Favorites from "./pages/Favorites/Favorites.tsx"
+import Users from "./pages/Users/Users.tsx";
+import React from "react";
+import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "", // Пустой путь делает этот маршрут активным по умолчанию
+        element: <Users />,
+      },
+      {
+        path: "favorites",
+        element: <Favorites />,
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+  <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
-  </BrowserRouter>
+  </React.StrictMode>
 );

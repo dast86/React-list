@@ -1,5 +1,5 @@
-import noActiveSpider from "../../img/svg/14.svg";
-import activeSpider from "../../img/svg/5.svg";
+import inactiveIcon from "../../img/svg/inactiveIcon.svg";
+import activeIcon from "../../img/svg/activeIcon.svg";
 import { Users } from "../../interface";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
@@ -9,33 +9,31 @@ interface PropsImage {
   user: Users;
 }
 
-const ImagSpider = ({ user }: PropsImage) => {
+const FavoriteIcon = ({ user }: PropsImage) => {
   const favoritesUsers = useAppSelector(
     (store) => store.usersStore.favoritesUsers
   );
   const dispatch = useAppDispatch();
-  const booleanFavorites = favoritesUsers.some(
+  const isFavorite  = favoritesUsers.some(
     (favorites) => favorites.id === user.id
   );
 
   const toggleIcon = (id: number) => {
-    const updatedFavorites = booleanFavorites
+    const addFavoritesUser = isFavorite 
       ? favoritesUsers.filter((item) => item.id !== id)
       : [...favoritesUsers, user];
-    localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    return dispatch(setFavoritesUsers(updatedFavorites));
+    localStorage.setItem("favoritesUsers", JSON.stringify(addFavoritesUser));
+    dispatch(setFavoritesUsers(addFavoritesUser));
   };
 
   return (
-    <>
       <img
         onClick={() => toggleIcon(user.id)}
-        src={booleanFavorites ? activeSpider : noActiveSpider}
+        src={isFavorite  ? activeIcon : inactiveIcon}
         className={styles.svg}
-        alt=""
+        alt="icon"
       />
-    </>
   );
 };
 
-export default ImagSpider;
+export default FavoriteIcon;

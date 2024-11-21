@@ -19,7 +19,7 @@ const Header = () => {
         <span className={styles.separator}>/</span>
 
         <NavLink
-          to="/favorit"
+          to="favorites"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Избранное

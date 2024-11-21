@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import UserFavorit from "../UserFavorit/UserFavorit";
-import FormUser from "../FormUser/FormUser";
+import UserFavorit from "../../Component/UserFavorit/UserFavorit";
+import FormUser from "../../Component/FormUser/FormUser";
 import { useDispatch } from "react-redux";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
 import { Users } from "../../interface";
 import styles from "./styles.module.css";
 
-const Favorit = () => {
+const Favorites = () => {
   const [addForm, setAddForm] = useState<boolean>(false);
   const [search, setSearch] = useState(``);
   const dispatch = useDispatch();
@@ -15,15 +15,8 @@ const Favorit = () => {
   useEffect(() => {
     const storedUsers = localStorage.getItem("favoritesUsers");
     if (storedUsers) {
-      try {
-        const parsedUsers: Users[] = JSON.parse(storedUsers);
-        dispatch(setFavoritesUsers(parsedUsers));
-      } catch (error) {
-        console.error(
-          "Ошибка при парсинге пользователей из localStorage:",
-          error
-        );
-      }
+      const parsedUsers: Users[] = JSON.parse(storedUsers);
+      dispatch(setFavoritesUsers(parsedUsers));
     }
   }, [dispatch]);
 
@@ -55,9 +48,9 @@ const Favorit = () => {
 
       {addForm && <FormUser onClose={setAddForm} />}
 
-      {<UserFavorit search={search} />}
+      <UserFavorit search={search} />
     </>
   );
 };
 
-export default Favorit;
+export default Favorites;

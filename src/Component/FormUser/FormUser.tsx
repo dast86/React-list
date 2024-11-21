@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
-import InputForm from "../Input/Input";
+import ModalForm from "../ModalForm/ModalForm ";
 
 interface Props {
   onClose: (form: boolean) => void;
@@ -43,21 +43,19 @@ const FormUser = ({ onClose }: Props) => {
       });
       onClose(false);
       localStorage.setItem("favoritesUsers", JSON.stringify(newFavoritesUsers)); // довавляю в локалСтор
-      return dispatch(setFavoritesUsers(newFavoritesUsers));
+      dispatch(setFavoritesUsers(newFavoritesUsers));
     }
   };
 
   return (
-    <>
-      <InputForm
-        data={inputForm}
-        setData={setInputForm}
-        ckickAddForm={ckickAddForm}
-        onClose={onClose}
-      >
-        Добавление героя
-      </InputForm>
-    </>
+    <ModalForm
+      data={inputForm}
+      setData={setInputForm}
+      ckickAddForm={ckickAddForm}
+      onClose={onClose}
+    >
+      Добавление героя
+    </ModalForm>
   );
 };
 
