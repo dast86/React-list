@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 import AddUserForm from "../../Component/AddUserForm/AddUserForm";
 
 const Favorites = () => {
-  const [addForm, setAddForm] = useState<boolean>(false);
+  const [isAddFormOpen, setIsAddFormOpen] = useState<boolean>(false);
   const [search, setSearch] = useState(``);
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const Favorites = () => {
     <>
       <div className={styles.flexConteiner}>
         <div className={styles.buttonForm}>
-          <button className={styles.button} onClick={() => setAddForm(true)}>
+          <button className={styles.button} onClick={() => setIsAddFormOpen(true)}>
             Добавить Героя
           </button>
         </div>
@@ -48,7 +48,7 @@ const Favorites = () => {
 
       <ListHeader />
 
-      {addForm && <AddUserForm onClose={setAddForm} />}
+      {isAddFormOpen && <AddUserForm onClose={setIsAddFormOpen} />}
 
       <UserFavorit search={search} />
     </>
