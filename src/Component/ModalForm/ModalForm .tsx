@@ -9,7 +9,7 @@ export interface DataInput {
 
 interface Props {
   data: DataInput;
-  setData: (params: (prev: DataInput) => DataInput) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
   handleAddForm: (event: React.FormEvent<HTMLButtonElement>) => void;
   onClose: (param: boolean) => void;
   children: React.ReactNode;
@@ -17,11 +17,13 @@ interface Props {
 
 const ModalForm  = ({
   data,
-  setData,
+  handleChange,
   handleAddForm,
   onClose,
   children,
 }: Props) => {
+
+  
   const usernameRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -31,7 +33,7 @@ const ModalForm  = ({
     usernameRef.current?.focus();
   }, []);
 
-  // Функция для фокусов по инпутам в форме
+  // Функция для фокусов по инпутам в форме и добавления пользователя
   const handleSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
     if (!data.username) {
       usernameRef.current?.focus();
@@ -47,7 +49,9 @@ const ModalForm  = ({
     }
     // Вызываем основную функцию при клике
     handleAddForm(event);
+    onClose(false)
   };
+
 
   return (
     <div className={styles.modal}>
@@ -61,9 +65,8 @@ const ModalForm  = ({
               type="text"
               placeholder="Ваш псевдоним"
               value={data.username}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, username: e.target.value }))
-              }
+              name="username"
+              onChange={handleChange}
               required
             />
           </div>
@@ -73,9 +76,8 @@ const ModalForm  = ({
               type="text"
               placeholder="Настоящие имя"
               value={data.name}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, name: e.target.value }))
-              }
+              name="name"
+              onChange={handleChange}
               required
             />
           </div>
@@ -84,10 +86,9 @@ const ModalForm  = ({
               ref={emailRef}
               type="text"
               placeholder="Почта для связи"
+              name="email"
               value={data.email}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, email: e.target.value }))
-              }
+              onChange={handleChange}
               required
             />
           </div>
