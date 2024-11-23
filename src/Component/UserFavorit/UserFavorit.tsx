@@ -1,19 +1,18 @@
 import { useAppDispatch, useAppSelector } from "../../store";
-import { setFavoritesUsers } from "../../store/slice/usersSlice";
+import { setDeleteFavoriteUser } from "../../store/slice/usersSlice";
 import { useState } from "react";
 import { Users } from "../../interface";
-import { useDebounce } from "../../hooks/useDebounce";
+import { useDebounce } from "../../hooks/useDebounce/useDebounce";
 import FavoriteUserItem from "../FavoriteUserItem/FavoriteUserItem";
 import FavoriteFormEdit from "../FavoriteFormEdit/FavoriteFormEdit";
+import { selectFavoritesUsers } from "../../store/selector/selector";
 
 interface Props {
   search: string;
 }
 
 const UserFavorit = ({ search }: Props) => {
-  const favoritesUsers = useAppSelector(
-    (store) => store.usersStore.favoritesUsers
-  );
+  const favoritesUsers = useAppSelector(selectFavoritesUsers);
   const dispatch = useAppDispatch();
   const [openForm, setOpenForm] = useState(false);
 
@@ -28,19 +27,10 @@ const UserFavorit = ({ search }: Props) => {
   );
 
   const handleDelete = (id: number) => {
-    const updatedFavorites = favoritesUsers.filter((item) => item.id !== id);
-    localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    dispatch(setFavoritesUsers(updatedFavorites));
+    dispatch(setDeleteFavoriteUser(id));
   };
 
-  const saveUserChanges = (updatedUser: Users) => {
-    const updatedFavorites = favoritesUsers.map((user) =>
-      user.id === updatedUser.id ? updatedUser : user
-    );
-    localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    dispatch(setFavoritesUsers(updatedFavorites));
-    setOpenForm(false);
-  };
+
 
   const handleEdit = (user: Users) => {
     setSelectedUser(user);
@@ -61,7 +51,6 @@ const UserFavorit = ({ search }: Props) => {
         <FavoriteFormEdit
           selectedUser={selectedUser}
           setOpenForm={setOpenForm}
-          saveUserChanges={saveUserChanges}
         />
       )}
     </ul>

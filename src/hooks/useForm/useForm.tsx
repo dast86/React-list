@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { setFavoritesUsers } from "../../store/slice/usersSlice";
-import { DataInput } from "../ModalForm/ModalForm ";
+import { setFavoritesUsers, setSaveFavoriteUser } from "../../store/slice/usersSlice";
+import {  Users } from "../../interface";
+import { selectFavoritesUsers } from "../../store/selector/selector";
 
-
-
-export function useForm(initialValues:DataInput) {
-
+export function useForm(initialValues: Users) {
   const [values, setValues] = useState(initialValues);
 
-  const favoritesUsers = useAppSelector(
-    (store) => store.usersStore.favoritesUsers
-  );
+  const favoritesUsers = useAppSelector(selectFavoritesUsers);
   const dispatch = useAppDispatch();
 
   // Id для нового пользователя с условием того, что всего 10 users приходит с api
@@ -25,28 +21,33 @@ export function useForm(initialValues:DataInput) {
     if (values.name && values.username && values.email) {
       const newUser = {
         id: lastId + 1,
-        username: initialValues.username,
-        name: initialValues.name,
-        email: initialValues.email,
+        username: values.username,
+        name: values.name,
+        email: values.email,
       };
       const newFavoritesUsers = [...favoritesUsers, newUser];
-      // Обнуляем поля ввода
+      dispatch(setFavoritesUsers(newFavoritesUsers));
+      // Обнуляем поля ввода и id
       setValues({
         name: "",
         username: "",
         email: "",
+        id:0,
       });
-      console.log(newUser)
-      localStorage.setItem("favoritesUsers", JSON.stringify(newFavoritesUsers)); // довавляю в локалСтор
-      dispatch(setFavoritesUsers(newFavoritesUsers));
     }
-    // console.log("я вызываюсь")
   };
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleAddEditForm = (event: React.FormEvent<HTMLButtonElement>) =>{
+    event.preventDefault(); // отключаю поведение по умолчанию
+    dispatch(setSaveFavoriteUser(values))
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value }); // Обновляем данные формы
   };
-  
-  return {values, handleAddForm,handleChange}
+
+  return { values, handleAddForm, handleChange,handleAddEditForm };
 }
+

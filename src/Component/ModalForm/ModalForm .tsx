@@ -1,14 +1,10 @@
 import { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
+import { Users } from "../../interface";
 
-export interface DataInput {
-  username: string;
-  name: string;
-  email: string;
-}
 
 interface Props {
-  data: DataInput;
+  data: Users;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
   handleAddForm: (event: React.FormEvent<HTMLButtonElement>) => void;
   onClose: (param: boolean) => void;

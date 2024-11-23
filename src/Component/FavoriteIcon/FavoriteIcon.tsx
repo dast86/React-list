@@ -4,15 +4,14 @@ import { Users } from "../../interface";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { setFavoritesUsers } from "../../store/slice/usersSlice";
 import styles from "./styles.module.css";
+import { selectFavoritesUsers } from "../../store/selector/selector";
 
 interface PropsImage {
   user: Users;
 }
 
 const FavoriteIcon = ({ user }: PropsImage) => {
-  const favoritesUsers = useAppSelector(
-    (store) => store.usersStore.favoritesUsers
-  );
+  const favoritesUsers = useAppSelector(selectFavoritesUsers);
   const dispatch = useAppDispatch();
   const isFavorite  = favoritesUsers.some(
     (favorites) => favorites.id === user.id

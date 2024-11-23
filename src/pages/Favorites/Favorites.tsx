@@ -1,25 +1,13 @@
 import UserFavorit from "../../Component/UserFavorit/UserFavorit";
 import ListHeader from "../../Component/ListHeader/ListHeader";
-import { useEffect, useState } from "react";
-import { setFavoritesUsers } from "../../store/slice/usersSlice";
-import { Users } from "../../interface";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+
 import styles from "./styles.module.css";
 import AddUserForm from "../../Component/AddUserForm/AddUserForm";
 
 const Favorites = () => {
   const [isAddFormOpen, setIsAddFormOpen] = useState<boolean>(false);
   const [search, setSearch] = useState(``);
-  const dispatch = useDispatch();
-
-  // useEffect для localStorage при загрузке
-  useEffect(() => {
-    const storedUsers = localStorage.getItem("favoritesUsers");
-    if (storedUsers) {
-      const parsedUsers: Users[] = JSON.parse(storedUsers);
-      dispatch(setFavoritesUsers(parsedUsers));
-    }
-  }, [dispatch]);
 
   return (
     <>
