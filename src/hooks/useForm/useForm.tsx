@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { setFavoritesUsers, setSaveFavoriteUser } from "../../store/slice/usersSlice";
+import { setFavoritesUsers, setSaveEditUser } from "../../store/slice/usersSlice";
 import {  Users } from "../../interface";
 import { selectFavoritesUsers } from "../../store/selector/selector";
 
@@ -40,7 +40,7 @@ export function useForm(initialValues: Users) {
 
   const handleAddEditForm = (event: React.FormEvent<HTMLButtonElement>) =>{
     event.preventDefault(); // отключаю поведение по умолчанию
-    dispatch(setSaveFavoriteUser(values))
+    dispatch(setSaveEditUser(values))
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

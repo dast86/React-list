@@ -27,7 +27,7 @@ export const usersSlice = createSlice({
         JSON.stringify(state.favoritesUsers)
       );
     },
-    setSaveFavoriteUser: (state, action: PayloadAction<Users>) => {
+    setSaveEditUser: (state, action: PayloadAction<Users>) => {
       state.favoritesUsers = state.favoritesUsers.map((user) =>
         user.id === action.payload.id ? action.payload : user
       );
@@ -39,7 +39,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { setFavoritesUsers, setDeleteFavoriteUser, setSaveFavoriteUser } =
+export const { setFavoritesUsers, setDeleteFavoriteUser, setSaveEditUser } =
   usersSlice.actions;
 
 export default usersSlice.reducer;
