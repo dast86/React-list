@@ -4,16 +4,20 @@ import { useState } from "react";
 
 import styles from "./styles.module.css";
 import AddUserForm from "../../Component/AddUserForm/AddUserForm";
+import useModal from "../../hooks/useModal/useModal";
 
-const Favorites = () => {
-  const [isAddFormOpen, setIsAddFormOpen] = useState<boolean>(false);
+const FavoritesPages = () => {
+
+  const {isOpen, handelModalClose, handelModalOpen} = useModal()
   const [search, setSearch] = useState(``);
+
+  
 
   return (
     <>
       <div className={styles.flexConteiner}>
         <div className={styles.buttonForm}>
-          <button className={styles.button} onClick={() => setIsAddFormOpen(true)}>
+          <button className={styles.button} onClick={handelModalOpen}>
             Добавить Героя
           </button>
         </div>
@@ -36,11 +40,11 @@ const Favorites = () => {
 
       <ListHeader />
 
-      {isAddFormOpen && <AddUserForm onClose={setIsAddFormOpen} />}
+      {isOpen && <AddUserForm onClose={handelModalClose} />}
 
       <UserFavorit search={search} />
     </>
   );
 };
 
-export default Favorites;
+export default FavoritesPages;

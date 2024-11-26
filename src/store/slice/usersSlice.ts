@@ -14,9 +14,16 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setFavoritesUsers: (state, action: PayloadAction<Users[]>) => {
-      state.favoritesUsers = action.payload;
-      localStorage.setItem("favoritesUsers", JSON.stringify(state.favoritesUsers)); 
+    toggleFavoritesUsers: (state, action: PayloadAction<Users>) => {
+
+      const findId = state.favoritesUsers.some(user => user.id === action.payload.id)
+
+      if (!findId) {
+        state.favoritesUsers.push(action.payload)
+      } 
+      else {
+        state.favoritesUsers.filter(user => user.id !== action.payload.id)
+      }
     },
     setDeleteFavoriteUser: (state, action: PayloadAction<number>) => {
       state.favoritesUsers = state.favoritesUsers.filter(
@@ -39,7 +46,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { setFavoritesUsers, setDeleteFavoriteUser, setSaveEditUser } =
+export const { toggleFavoritesUsers, setDeleteFavoriteUser, setSaveEditUser } =
   usersSlice.actions;
 
 export default usersSlice.reducer;
