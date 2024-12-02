@@ -1,24 +1,43 @@
 import { useAppDispatch, useAppSelector } from "../../store";
-import { setFavoritesUsers } from "../../store/slice/usersSlice";
-import { useState } from "react";
-import { Users } from "../../interface";
-import { useDebounce } from "../../hooks/useDebounce";
-import FavoriteUserItem from "../FavoriteUserItem/FavoriteUserItem";
-import FavoriteFormEdit from "../FavoriteFormEdit/FavoriteFormEdit";
+import { useDebounce } from "../../hooks/useDebounce/useDebounce";
+import {
+  selectFavoritesUsers,
+  selectSelectedUsers,
+} from "../../store/selector/selector";
+import { useForm } from "../../hooks/useForm/useForm";
+import useModal from "../../hooks/useModal/useModal";
+import ModalForm from "../ModalForm/ModalForm ";
+import FavoriteUserList from "../FavoriteUserList/FavoriteUserList";
+import { uppdateFavoriteUer } from "../../store/slice/usersSlice";
+import { useEffect } from "react";
+import { saveToLocalStorage } from "../../helpers/localStorage";
 
 interface Props {
   search: string;
 }
 
 const UserFavorit = ({ search }: Props) => {
-  const favoritesUsers = useAppSelector(
-    (store) => store.usersStore.favoritesUsers
-  );
+  const favoritesUsers = useAppSelector(selectFavoritesUsers);
+  const selected = useAppSelector(selectSelectedUsers);
   const dispatch = useAppDispatch();
-  const [openForm, setOpenForm] = useState(false);
 
-  //  Этот стейт нужен для того, что бы я передавал данные выбранного пользователя в FormEdit
-  const [selectedUser, setSelectedUser] = useState<Users | null>(null);
+  const hendelSubmit = () => {
+    if (!selected) return;
+
+    dispatch(uppdateFavoriteUer({id:selected.id, ...values}));
+    handelModalClose()
+  };
+
+  const { isOpen, handelModalClose, handelModalOpen } = useModal();
+
+  const { values, handleAddForm, handleChange, updateValues } = useForm(
+    {
+      name: "",
+      username: "",
+      email: "",
+    },
+    hendelSubmit
+  );
 
   // Отображение с задержкой в 500 млс
   const debounce = useDebounce(search, 500);
@@ -27,44 +46,39 @@ const UserFavorit = ({ search }: Props) => {
     user.name.toLowerCase().includes(debounce.toLowerCase())
   );
 
-  const handleDelete = (id: number) => {
-    const updatedFavorites = favoritesUsers.filter((item) => item.id !== id);
-    localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    dispatch(setFavoritesUsers(updatedFavorites));
-  };
+  useEffect(() => {
+    if (selected) {
+      updateValues({
+        name: selected?.name,
+        username: selected?.username,
+        email: selected?.email,
+      });
+    }
+  }, [selected]);
 
-  const saveUserChanges = (updatedUser: Users) => {
-    const updatedFavorites = favoritesUsers.map((user) =>
-      user.id === updatedUser.id ? updatedUser : user
-    );
-    localStorage.setItem("favoritesUsers", JSON.stringify(updatedFavorites));
-    dispatch(setFavoritesUsers(updatedFavorites));
-    setOpenForm(false);
-  };
+  useEffect(()=>{
+    saveToLocalStorage(favoritesUsers)
+  }, [favoritesUsers])
 
-  const handleEdit = (user: Users) => {
-    setSelectedUser(user);
-    setOpenForm(true);
-  };
 
   return (
-    <ul>
-      {filteredFavorites.map((user) => (
-        <FavoriteUserItem
-          user={user}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          key={user.id}
-        />
-      ))}
-      {openForm && selectedUser && (
-        <FavoriteFormEdit
-          selectedUser={selectedUser}
-          setOpenForm={setOpenForm}
-          saveUserChanges={saveUserChanges}
-        />
+    <>
+      <FavoriteUserList
+        users={filteredFavorites}
+        handelModalOpen={handelModalOpen}
+      />
+
+      {isOpen && selected && (
+        <ModalForm
+          data={values}
+          handleChange={handleChange}
+          handleAddForm={handleAddForm}
+          onClose={handelModalClose}
+        >
+          Изменение пользователя
+        </ModalForm>
       )}
-    </ul>
+    </>
   );
 };
 

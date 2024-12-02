@@ -1,31 +1,46 @@
 import UserFavorit from "../../Component/UserFavorit/UserFavorit";
 import ListHeader from "../../Component/ListHeader/ListHeader";
-import { useEffect, useState } from "react";
-import { setFavoritesUsers } from "../../store/slice/usersSlice";
-import { Users } from "../../interface";
-import { useDispatch } from "react-redux";
-import styles from "./styles.module.css";
-import AddUserForm from "../../Component/AddUserForm/AddUserForm";
 
-const Favorites = () => {
-  const [isAddFormOpen, setIsAddFormOpen] = useState<boolean>(false);
-  const [search, setSearch] = useState(``);
+import useModal from "../../hooks/useModal/useModal";
+import { useState } from "react";
+import { useForm } from "../../hooks/useForm/useForm";
+import { useDispatch } from "react-redux";
+import { toggleFavoritesUsers } from "../../store/slice/usersSlice";
+
+import styles from "./styles.module.css";
+import ModalForm from "../../Component/ModalForm/ModalForm ";
+
+const FavoritesPages = () => {
   const dispatch = useDispatch();
 
-  // useEffect для localStorage при загрузке
-  useEffect(() => {
-    const storedUsers = localStorage.getItem("favoritesUsers");
-    if (storedUsers) {
-      const parsedUsers: Users[] = JSON.parse(storedUsers);
-      dispatch(setFavoritesUsers(parsedUsers));
-    }
-  }, [dispatch]);
+  const { isOpen, handelModalClose, handelModalOpen } = useModal();
+  const [search, setSearch] = useState(``);
+
+  const hendelSubmit = () => {
+    dispatch(toggleFavoritesUsers({ id: Math.random(), ...values }));
+    handelModalClose();
+    // Очистка полей после добавления
+    updateValues({
+      name: "",
+      username: "",
+      email: "",
+    })
+  };
+
+  const { values, handleAddForm, handleChange,updateValues } = useForm(
+    {
+      name: "",
+      username: "",
+      email: "",
+    },
+    hendelSubmit
+  );
 
   return (
     <>
       <div className={styles.flexConteiner}>
         <div className={styles.buttonForm}>
-          <button className={styles.button} onClick={() => setIsAddFormOpen(true)}>
+          <button className={styles.button} onClick={handelModalOpen}>
             Добавить Героя
           </button>
         </div>
@@ -48,11 +63,20 @@ const Favorites = () => {
 
       <ListHeader />
 
-      {isAddFormOpen && <AddUserForm onClose={setIsAddFormOpen} />}
+      {isOpen && (
+        <ModalForm
+          data={values}
+          handleChange={handleChange}
+          handleAddForm={handleAddForm}
+          onClose={handelModalClose}
+        >
+          Добавление героя
+        </ModalForm>
+      )}
 
       <UserFavorit search={search} />
     </>
   );
 };
 
-export default Favorites;
+export default FavoritesPages;

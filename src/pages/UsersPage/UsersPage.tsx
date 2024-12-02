@@ -2,7 +2,7 @@ import { useGetUserQuery } from "../../store/services/userApi";
 import UsersList from "../../Component/UsersList/UsersList";
 import ListHeader from "../../Component/ListHeader/ListHeader";
 
-const Users = () => {
+const UsersPage = () => {
   const { data, isLoading } = useGetUserQuery();
 
   return (
@@ -13,4 +13,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersPage;
