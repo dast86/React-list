@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
-import { Users } from "../../interface";
+import { UsersWithoutId } from "../../interface";
 
 
 interface Props {
-  data: Users;
+  data: UsersWithoutId;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
   handleAddForm: (event: React.FormEvent<HTMLButtonElement>) => void;
-  onClose: (param: boolean) => void;
+  onClose: () => void;
   children: React.ReactNode;
 }
 
@@ -45,13 +45,12 @@ const ModalForm  = ({
     }
     // Вызываем основную функцию при клике
     handleAddForm(event);
-    onClose(false)
   };
 
 
   return (
     <div className={styles.modal}>
-      <div className={styles.overlay} onClick={() => onClose(false)}></div>
+      <div className={styles.overlay} onClick={onClose}></div>
       <div className={styles.wrapper}>
         <h2>{children}</h2>
         <form action="#">

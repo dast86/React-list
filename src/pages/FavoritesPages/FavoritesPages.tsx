@@ -1,17 +1,40 @@
 import UserFavorit from "../../Component/UserFavorit/UserFavorit";
 import ListHeader from "../../Component/ListHeader/ListHeader";
+
+import useModal from "../../hooks/useModal/useModal";
 import { useState } from "react";
+import { useForm } from "../../hooks/useForm/useForm";
+import { useDispatch } from "react-redux";
+import { toggleFavoritesUsers } from "../../store/slice/usersSlice";
 
 import styles from "./styles.module.css";
-import AddUserForm from "../../Component/AddUserForm/AddUserForm";
-import useModal from "../../hooks/useModal/useModal";
+import ModalForm from "../../Component/ModalForm/ModalForm ";
 
 const FavoritesPages = () => {
+  const dispatch = useDispatch();
 
-  const {isOpen, handelModalClose, handelModalOpen} = useModal()
+  const { isOpen, handelModalClose, handelModalOpen } = useModal();
   const [search, setSearch] = useState(``);
 
-  
+  const hendelSubmit = () => {
+    dispatch(toggleFavoritesUsers({ id: Math.random(), ...values }));
+    handelModalClose();
+    // Очистка полей после добавления
+    updateValues({
+      name: "",
+      username: "",
+      email: "",
+    })
+  };
+
+  const { values, handleAddForm, handleChange,updateValues } = useForm(
+    {
+      name: "",
+      username: "",
+      email: "",
+    },
+    hendelSubmit
+  );
 
   return (
     <>
@@ -40,7 +63,16 @@ const FavoritesPages = () => {
 
       <ListHeader />
 
-      {isOpen && <AddUserForm onClose={handelModalClose} />}
+      {isOpen && (
+        <ModalForm
+          data={values}
+          handleChange={handleChange}
+          handleAddForm={handleAddForm}
+          onClose={handelModalClose}
+        >
+          Добавление героя
+        </ModalForm>
+      )}
 
       <UserFavorit search={search} />
     </>
