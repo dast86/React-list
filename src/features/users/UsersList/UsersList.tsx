@@ -1,6 +1,6 @@
-import { Users } from "../../interface";
+import { Users } from "../../../entities/users";
+import defaultAvatar from "../../../assets/img/defaultAvatar.png";
 import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
-import defaultAvatar from "../../img/defaultAvatar.png";
 import styles from "./styles.module.css";
 
 interface Props {

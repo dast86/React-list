@@ -1,16 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../../store";
-import { useDebounce } from "../../hooks/useDebounce/useDebounce";
-import {
-  selectFavoritesUsers,
-  selectSelectedUsers,
-} from "../../store/selector/selector";
-import { useForm } from "../../hooks/useForm/useForm";
-import useModal from "../../hooks/useModal/useModal";
-import ModalForm from "../ModalForm/ModalForm ";
-import FavoriteUserList from "../FavoriteUserList/FavoriteUserList";
-import { uppdateFavoriteUer } from "../../store/slice/usersSlice";
+import { useDebounce } from "../../../../shared/hooks/useDebounce/useDebounce";
+import { uppdateFavoriteUer } from "../../../../app/store/slice/usersSlice";
 import { useEffect } from "react";
-import { saveToLocalStorage } from "../../helpers/localStorage";
+import { saveToLocalStorage } from "../../../../shared/lib/localStorage";
+import { selectFavoritesUsers, selectSelectedUsers } from "../../../../app/store/selector/selector";
+import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { useForm } from "../../../../shared/hooks/useForm/useForm";
+import useModal from "../../../../shared/hooks/useModal/useModal";
+import ModalForm from "../../../../shared/ui/ModalForm/ModalForm ";
+import FavoriteUserList from "../FavoriteUserList/FavoriteUserList";
 
 interface Props {
   search: string;
@@ -24,8 +21,8 @@ const UserFavorit = ({ search }: Props) => {
   const hendelSubmit = () => {
     if (!selected) return;
 
-    dispatch(uppdateFavoriteUer({id:selected.id, ...values}));
-    handelModalClose()
+    dispatch(uppdateFavoriteUer({ id: selected.id, ...values }));
+    handelModalClose();
   };
 
   const { isOpen, handelModalClose, handelModalOpen } = useModal();
@@ -56,10 +53,9 @@ const UserFavorit = ({ search }: Props) => {
     }
   }, [selected]);
 
-  useEffect(()=>{
-    saveToLocalStorage(favoritesUsers)
-  }, [favoritesUsers])
-
+  useEffect(() => {
+    saveToLocalStorage(favoritesUsers);
+  }, [favoritesUsers]);
 
   return (
     <>

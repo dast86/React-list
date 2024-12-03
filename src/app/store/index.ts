@@ -2,9 +2,10 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import usersSlice from "./slice/usersSlice";
+import { usersApi } from "../../shared/api/userApi";
 
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { usersApi } from "./services/userApi";
+
 
 export const store = configureStore({
   reducer: {

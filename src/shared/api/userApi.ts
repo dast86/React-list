@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Users } from "../../interface";
+import { Users } from "../../entities/users";
 const url = "https://jsonplaceholder.typicode.com/";
 
 export const usersApi = createApi({

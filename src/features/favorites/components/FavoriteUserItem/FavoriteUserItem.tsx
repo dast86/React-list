@@ -1,9 +1,10 @@
-import defaultAvatar from "../../img/defaultAvatar.png";
-import delet from "../../img/svg/delete.svg";
-import edit from "../../img/svg/edit.svg";
-import { Users } from "../../interface";
-import { useAppDispatch } from "../../store";
-import { deleteFavoriteUser, saveSelected } from "../../store/slice/usersSlice";
+import defaultAvatar from "../../../../assets/img/defaultAvatar.png";
+import delet from "../../../../assets/img/svg/delete.svg";
+import edit from "../../../../assets/img/svg/edit.svg";
+import { Users } from "../../../../entities/users";
+import { useAppDispatch } from "../../../../app/store";
+import { deleteFavoriteUser, saveSelected } from "../../../../app/store/slice/usersSlice";
+
 import styles from "./styles.module.css";
 
 interface Props {
@@ -16,8 +17,7 @@ const FavoriteUserItem = ({ user, handelModalOpen }: Props) => {
 
   const handleDelete = () => {
     dispatch(deleteFavoriteUser(user.id));
-    // dispatch(toggleFavoritesUsers(user)); - Так тоже пользователь удаляется, но я не пойму, какой подход в итоге лучше? 
-
+    // dispatch(toggleFavoritesUsers(user)); - Так тоже пользователь удаляется, но я не пойму, какой подход в итоге лучше?
   };
 
   const handleEdit = () => {
