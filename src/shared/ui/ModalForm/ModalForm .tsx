@@ -1,25 +1,22 @@
 import { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
-import { UsersWithoutId } from "../../interface";
-
+import { UsersWithoutId } from "../../../entities/users";
 
 interface Props {
   data: UsersWithoutId;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddForm: (event: React.FormEvent<HTMLButtonElement>) => void;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-const ModalForm  = ({
+const ModalForm = ({
   data,
   handleChange,
   handleAddForm,
   onClose,
   children,
 }: Props) => {
-
-  
   const usernameRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -46,7 +43,6 @@ const ModalForm  = ({
     // Вызываем основную функцию при клике
     handleAddForm(event);
   };
-
 
   return (
     <div className={styles.modal}>
@@ -102,4 +98,4 @@ const ModalForm  = ({
   );
 };
 
-export default ModalForm ;
+export default ModalForm;

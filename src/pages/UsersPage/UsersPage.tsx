@@ -1,13 +1,13 @@
-import { useGetUserQuery } from "../../store/services/userApi";
-import UsersList from "../../Component/UsersList/UsersList";
-import ListHeader from "../../Component/ListHeader/ListHeader";
+import UsersList from "../../features/users/UsersList/UsersList";
+import { useGetUserQuery } from "../../shared/api/userApi";
+import ListHeader from "../../shared/ui/ListHeader/ListHeader";
 
 const UsersPage = () => {
   const { data, isLoading } = useGetUserQuery();
 
   return (
     <>
-      <ListHeader/>
+      <ListHeader />
       {!isLoading && data && <UsersList data={data} />}
     </>
   );

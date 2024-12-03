@@ -1,24 +1,22 @@
-import { Users } from "../../interface";
+import { Users } from "../../../../entities/users";
 import FavoriteUserItem from "../FavoriteUserItem/FavoriteUserItem";
-
 
 interface Props {
   users: Users[];
-  handelModalOpen:() => void
+  handelModalOpen: () => void;
 }
 
 const FavoriteUserList = ({ users, handelModalOpen }: Props) => {
   return (
     <ul>
       {users.map((user) => (
-        <FavoriteUserItem 
-        user={user}
-        handelModalOpen={handelModalOpen}
-        key={user.id}/>
+        <FavoriteUserItem
+          user={user}
+          handelModalOpen={handelModalOpen}
+          key={user.id}
+        />
       ))}
-
     </ul>
-
   );
 };
 

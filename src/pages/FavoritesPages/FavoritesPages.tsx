@@ -1,14 +1,18 @@
-import UserFavorit from "../../Component/UserFavorit/UserFavorit";
-import ListHeader from "../../Component/ListHeader/ListHeader";
+import UserFavorit from "../../features/favorites/components/UserFavorit/UserFavorit";
+import ListHeader from "../../shared/ui/ListHeader/ListHeader";
 
-import useModal from "../../hooks/useModal/useModal";
-import { useState } from "react";
-import { useForm } from "../../hooks/useForm/useForm";
+import useModal from "../../shared/hooks/useModal/useModal";
 import { useDispatch } from "react-redux";
-import { toggleFavoritesUsers } from "../../store/slice/usersSlice";
+import { useState } from "react";
+import { useForm } from "../../shared/hooks/useForm/useForm";
+import ModalForm from "../../shared/ui/ModalForm/ModalForm ";
+import { toggleFavoritesUsers } from "../../app/store/slice/usersSlice";
 
 import styles from "./styles.module.css";
-import ModalForm from "../../Component/ModalForm/ModalForm ";
+
+
+
+
 
 const FavoritesPages = () => {
   const dispatch = useDispatch();
@@ -24,10 +28,10 @@ const FavoritesPages = () => {
       name: "",
       username: "",
       email: "",
-    })
+    });
   };
 
-  const { values, handleAddForm, handleChange,updateValues } = useForm(
+  const { values, handleAddForm, handleChange, updateValues } = useForm(
     {
       name: "",
       username: "",

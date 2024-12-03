@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UsersWithoutId } from "../../interface";
+import { UsersWithoutId } from "../../../entities/users";
 
 export function useForm(
   initialValues: UsersWithoutId,
@@ -7,31 +7,26 @@ export function useForm(
 ) {
   const [values, setValues] = useState(initialValues);
 
-
-
-
   const handleAddForm = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    for (const k in values){
-      const key = k as keyof UsersWithoutId
-      if(!values[key]){
-        return
+    for (const k in values) {
+      const key = k as keyof UsersWithoutId;
+      if (!values[key]) {
+        return;
       }
     }
-    handelClick()
+    handelClick();
   };
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value }); // Обновляем данные формы
   };
 
-  const updateValues = (e:UsersWithoutId) => { 
-    setValues(e)
-  }
+  const updateValues = (e: UsersWithoutId) => {
+    setValues(e);
+  };
 
-  return { values, handleAddForm, handleChange,updateValues };
+  return { values, handleAddForm, handleChange, updateValues };
 }
-
